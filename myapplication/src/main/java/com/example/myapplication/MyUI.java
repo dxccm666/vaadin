@@ -64,7 +64,7 @@ public class MyUI extends UI {
         main.setSpacing(true);
         main.setSizeFull();
         grid.setSizeFull();
-        main.setExpandRatio(grid ,1);
+        main.setExpandRatio(grid,1);
         layout.addComponents(filtering,main );
         updatelist();
         
