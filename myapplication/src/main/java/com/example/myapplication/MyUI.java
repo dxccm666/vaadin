@@ -35,15 +35,24 @@ public class MyUI extends UI {
 
 
         VerticalLayout layout = new VerticalLayout();
-        List<Customer> customers=service.findAll();
-        grid.setContainerDataSource(new BeanItemContainer<>(Customer.class,customers));
+        grid.setColumns("firstName","lastName","email");
         layout.addComponent(grid);
+        updatelist();
+        
         layout.setMargin(true);
         layout.setSpacing(true);
        
         setContent(layout);
     	 
     }
+        public void updatelist() {
+        	
+
+     	    List<Customer> customers=service.findAll();
+            grid.setContainerDataSource(new BeanItemContainer<>(Customer.class,customers));
+		
+	}
+		
 
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
