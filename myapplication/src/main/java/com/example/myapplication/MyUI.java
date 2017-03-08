@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.server.FontAwesome;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Button;
@@ -41,7 +42,7 @@ public class MyUI extends UI {
         	grid.setContainerDataSource(new BeanItemContainer<>(Customer.class, 
         			service.findAll(e.getText())));
         	});
-        Button cleraFilterTextBtn = new Button("Clear filter");
+        Button cleraFilterTextBtn = new Button(FontAwesome.TIMES);
         cleraFilterTextBtn.addClickListener(e ->{
         	filterText.clear();
         	updatelist();
