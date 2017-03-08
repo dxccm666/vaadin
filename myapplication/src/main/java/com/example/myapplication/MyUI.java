@@ -11,12 +11,14 @@ import com.vaadin.server.FontAwesome;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.ValoTheme;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser window 
@@ -49,7 +51,8 @@ public class MyUI extends UI {
         	updatelist();
         });
         
-        HorizontalLayout filtering = new HorizontalLayout();
+        CssLayout filtering = new CssLayout();
+        filtering.setStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
         filtering.addComponents(filterText,cleraFilterTextBtn);
         
         grid.setColumns("firstName","lastName","email");
