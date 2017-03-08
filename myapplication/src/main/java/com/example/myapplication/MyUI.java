@@ -28,7 +28,7 @@ public class MyUI extends UI {
 	
 	private CustomerService service =CustomerService.getInstance();
 	private Grid grid = new Grid();
-	private TextField filterText = new TextField("Filter by name");
+	private TextField filterText = new TextField();
 	
 
     @Override
@@ -36,6 +36,7 @@ public class MyUI extends UI {
 
 
         VerticalLayout layout = new VerticalLayout();
+        filterText.setInputPrompt("filter by name...");
         filterText.addTextChangeListener(e ->{
         	grid.setContainerDataSource(new BeanItemContainer<>(Customer.class, 
         			service.findAll(e.getText())));
