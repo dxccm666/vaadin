@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.annotation.WebServlet;
 
+import org.atmosphere.cpr.MetaBroadcaster.ThirtySecondsCache;
+
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.data.util.BeanItemContainer;
@@ -12,6 +14,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.Form;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
@@ -33,6 +36,7 @@ public class MyUI extends UI {
 	private CustomerService service =CustomerService.getInstance();
 	private Grid grid = new Grid();
 	private TextField filterText = new TextField();
+	private CustomerForm form = new CustomerForm(this);
 	
 
     @Override
@@ -56,7 +60,12 @@ public class MyUI extends UI {
         filtering.addComponents(filterText,cleraFilterTextBtn);
         
         grid.setColumns("firstName","lastName","email");
-        layout.addComponents(filtering,grid);
+        HorizontalLayout main=new HorizontalLayout(grid,form);
+        main.setSpacing(true);
+        main.setSizeFull();
+        grid.setSizeFull();
+        main.setExpandRatio(grid ,1);
+        layout.addComponents(filtering,main );
         updatelist();
         
         layout.setMargin(true);
