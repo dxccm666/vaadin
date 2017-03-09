@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import javax.naming.event.NamespaceChangeListener;
 
+import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.FormLayout;
@@ -30,13 +31,34 @@ public class CustomerForm extends FormLayout  {
 		status.addItems(CustomerStatus.values());
 		save.setStyleName(ValoTheme.BUTTON_PRIMARY);
 		save.setClickShortcut(KeyCode.ENTER);
+		save.addClickListener(e ->save());
+		delete.addClickListener(e ->delete());
 		setSizeUndefined();
 		HorizontalLayout buttons = new HorizontalLayout(save,delete);
 		buttons.setSpacing(true);
 		addComponents(firstName ,lastName ,email ,status ,birthDate ,buttons );
 		
 	}
-		
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+		BeanFieldGroup.bindFieldsBuffered(customer , this);
+		delete.setVisible(customer.isPersisted());
+		setVisible(true);
+		firstName.selectAll();
+		firstName.setValue(customer.getFirstName());
+	}
+		private void save (){
+			service.save(customer );
+			myUI.updatelist();
+			setVisible(false);
+		}
+        private void delete (){
+        	service.delete(customer );
+			myUI.updatelist();
+			setVisible(false);
+        	
+			
+		}
 		
 	}
 
