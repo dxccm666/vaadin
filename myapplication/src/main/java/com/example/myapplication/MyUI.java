@@ -21,6 +21,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.components.calendar.event.CalendarEvent.EventChangeEvent;
 import com.vaadin.ui.themes.ValoTheme;
 
 /**
@@ -58,22 +59,36 @@ public class MyUI extends UI {
         CssLayout filtering = new CssLayout();
         filtering.setStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
         filtering.addComponents(filterText,cleraFilterTextBtn);
-        
+        Button addCustomerBtn=new Button("Add new customer");
+        addCustomerBtn.addClickListener(e ->{
+        	grid.select(null);
+        	form.setCustomer(new Customer());
+        });
+        HorizontalLayout toolbar=new HorizontalLayout(filtering,addCustomerBtn);
+        toolbar.setSpacing(true );
         grid.setColumns("firstName","lastName","email");
         HorizontalLayout main=new HorizontalLayout(grid,form);
         main.setSpacing(true);
         main.setSizeFull();
         grid.setSizeFull();
         main.setExpandRatio(grid,1);
-        layout.addComponents(filtering,main );
+        layout.addComponents(toolbar,main );
         updatelist();
         
         layout.setMargin(true);
         layout.setSpacing(true);
        
         setContent(layout);
-    	 
-    }
+        form.setVisible(false);
+    	grid.addSelectionListener(event ->{
+    		if (event.getSelected().isEmpty()) {
+    			form.setVisible(false);
+				
+			} else {
+			Customer customer =	(Customer) event.getSelected().iterator().next();
+            form.setCustomer(customer);
+			}});
+    	}
         public void updatelist() {
         	
 
